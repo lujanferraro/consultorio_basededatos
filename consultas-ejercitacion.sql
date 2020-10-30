@@ -19,11 +19,22 @@ ON m.especialidad_id = e.especialidad_id
 GROUP BY m.especialidad_id;
 
 
--- ¿que pacientes tienen mas de un medico?
-
 -- ¿cuantos pacientes tiene cada medico?
 
--- ¿cuanto cobra facturo cada medico?
+SELECT DISTINCT m.apellido as medico,  COUNT(p.paciente_id)  as cant_pacientes FROM turnos as t
+JOIN medicos as m
+ON m.medico_id= t.medico_id
+JOIN pacientes as p
+ON t.paciente_id= p.paciente_id
+GROUP BY (m.apellido);
+
+-- ¿cuanto factura cada medico?
+
+SELECT m.apellido as medico, SUM(precio) as facturado FROM medicos as m
+JOIN turnos as t
+ON m.medico_id= t.medico_id
+GROUP BY (m.apellido);
+
 
 
 
